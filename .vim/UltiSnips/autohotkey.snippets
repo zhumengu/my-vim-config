@@ -1,0 +1,49 @@
+snippet if "条件选择" b
+If (${1:MyVal = 5})
+{
+	$2
+}
+endsnippet
+
+snippet el "Else 语句" b
+Else
+{
+	${1:; code}
+}
+endsnippet
+
+snippet for "for 语句" b
+For ${1:var} in ${2:object}
+{
+	${3:; code}
+}
+endsnippet
+
+snippet wh "while 语句" b
+While(${1:expression})
+{
+	${2:; code}
+}
+endsnippet
+
+snippet msg "消息弹窗" b
+MsgBox, ${1:Text}
+endsnippet
+
+snippet inc "包含文件" b
+#Include ${1:FileOrDirName}
+endsnippet
+
+snippet /loopf?(ile)?/ "循环文件" br
+Loop, Files, ${1:Pattern}${2:, R}
+{
+	${3:; MsgBox, %A_LoopFileName%}
+}
+endsnippet
+
+snippet /loopr?(eg)?/ "循环注册表" br
+Loop, Reg, ${1:Key}${2:, R}
+{
+	${3:; MsgBox, %A_loopRegName%}
+}
+endsnippet
