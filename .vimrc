@@ -29,6 +29,7 @@ Plug 'ycm-core/YouCompleteMe'
 Plug 'yegappan/mru'
 Plug 'zhumengu/vim-AHKcomplete'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'PProvost/vim-ps1'
 call plug#end()
 
 filetype plugin indent on    " required
@@ -43,20 +44,21 @@ endfunction
 
 function! AppendSpaceAfter(char)
     let arr = UnderCursorCharacter()
-    if arr[1] == a:char && arr[2] == ''
-        exe "normal! a\<space>"
+    if arr[1] == '' && arr[2] == ''
+        return ",\<space>"
     endif
+    return ","
 endfunction
 
 function! RemoveTrailingBlank()
-    let previous = line('.') - 1
+    let previous = line('.')
     let text = getline(previous)
     call setline(previous, substitute(text, '\s\+$', '', ''))
+    return "\<cr>"
 endfunction
 
-inoremap , ,<C-o>:call AppendSpaceAfter(',')<cr>
-" BUG:回车插入空行时没有自动缩进
-" inoremap <cr> <cr><C-o>:call RemoveTrailingBlank()<cr>
+inoremap , <C-r>=AppendSpaceAfter(',')<cr>
+inoremap <cr> <C-r>=RemoveTrailingBlank()<cr>
 inoremap -. ->
 inoremap =. =>
 inoremap <C-d> <C-[>mzyyp`zgj
