@@ -32,6 +32,11 @@ snippet @r "仓库注解"
 org.springframework.stereotype.Repository
 endsnippet
 
+snippet def "定义变量"
+def ${1} = ${2};
+${3}
+endsnippet
+
 # Many of the snippets here use a global option called
 # "g:ultisnips_java_brace_style" which, if set to "nl" will put a newline
 # before '{' braces.
@@ -256,7 +261,8 @@ $0
 endsnippet
 
 snippet im "import"  b
-import ${1:java}.${2:util}.$0;
+import ${1:groovy}.${2:xml}.$3;
+$4
 endsnippet
 
 snippet in "interface" b
