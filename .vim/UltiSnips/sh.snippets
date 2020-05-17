@@ -1,0 +1,90 @@
+snippet #! "Shebang"
+#!/bin/sh
+
+endsnippet
+snippet if "if statement"
+if [ ${1:condition} ]; then
+	${0:${VISUAL}}
+fi
+endsnippet
+snippet elif "else if statement"
+elif [ ${1:condition} ]; then
+	${0:${VISUAL}}
+endsnippet
+snippet for
+for ${1:needle} in ${2:haystack} ; do
+	${0:${VISUAL}}
+done
+endsnippet
+snippet wh
+while ${1:condition}; do
+	${0:${VISUAL}}
+done
+endsnippet
+snippet until
+until ${1:condition}; do
+	${0:${VISUAL}}
+done
+endsnippet
+snippet case
+case ${1:word} in
+	${2:pattern})
+		${0};;
+esac
+endsnippet
+snippet go
+ARG=$(getopt -o ${1:'h'} -l ${2:help} --name $(basename \$0) -- "$@")
+eval set -- "$ARG"
+
+while true; do
+	case "\$1" in
+	-h | --help)
+		usage 0
+		;;
+	--)
+		shift
+		break
+		;;
+	*)
+		usege 1
+	esac
+	shift
+done
+endsnippet
+snippet sdir
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+endsnippet
+
+snippet root
+if [ \$(id -u) -ne 0 ]; then exec sudo \$0; fi
+endsnippet
+
+snippet fun-sh
+${1:function_name}() {
+	${0:#function_body}
+}
+endsnippet
+
+snippet fun-die
+die() {
+	printf "\033[31m"
+	printf -- '%b' "\$1"
+	printf "\033[0m"
+}
+endsnippet
+
+snippet usage
+usage() {
+	cat <<- EOF
+
+Usage: sh $(basename \$0) [h${1:}]
+
+Valid options are:
+	${2:}
+	-h, --help
+			Usage
+
+EOF
+	exit \$1
+}
+endsnippet
