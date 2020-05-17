@@ -1,25 +1,34 @@
+set nocompatible
 call plug#begin('~/.vim/plugged')
+"Plug 'junegunn/goyo.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'machakann/vim-Verdin'
+"Plug 'ruby-formatter/rufo-vim'
+Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
-Plug 'WolfgangMehner/perl-support'
+Plug 'whatyouhide/vim-gotham'
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
 Plug 'frazrepo/vim-rainbow'
 Plug 'honza/vim-snippets'
-Plug 'jiangmiao/auto-pairs'
+Plug 'hotchpotch/perldoc-vim'
+"Plug 'jiangmiao/auto-pairs'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kchmck/vim-coffee-script'
 Plug 'leafgarland/typescript-vim'
 Plug 'mattn/emmet-vim'
-Plug 'mg979/vim-visual-multi'
+"Plug 'mg979/vim-visual-multi'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'plasticboy/vim-markdown'
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
+"Plug 'prabirshrestha/async.vim'
+"Plug 'prabirshrestha/vim-lsp'
 Plug 'preservim/nerdcommenter'
-Plug 'rlue/vim-barbaric'    " normal 模式退出输入法
+"Plug 'rlue/vim-barbaric'    " normal 模式退出输入法
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
 Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
@@ -30,20 +39,25 @@ Plug 'vim-scripts/matchit.zip'
 Plug 'vimwiki/vimwiki'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'yegappan/mru'
+Plug 'c9s/perlomni.vim'
 Plug 'zhumengu/vim-AHKcomplete'
 call plug#end()
 
+let g:formatters_ruby = ['rufo']
+let g:formatdef_rufo = "'rufo -x'"
+let g:perlomni_export_functions = 1
 let g:NERDTreeRespectWildIgnore = 1
 let g:Templates_MapInUseWarn = 0
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
-let g:UltiSnipsListSnippets = '<c-h>'
+let g:UltiSnipsListSnippets = '<c-z>'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 let g:auto_strip_tailing_whitespace = 1
-let g:barbaric_default = 0
+"let g:barbaric_default = 0
+"let g:barbaric_timeout = 1
 let g:barbaric_scope = 'buffer'
 let g:barbaric_timeout = -1
 let g:closetag_html_style = 1
@@ -57,6 +71,7 @@ let g:vim_markdown_toc_autofit = 1
 let g:yankring_history_dir = '$HOME/.vim,$HOME'
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>'] " ycm 与 ultisnips 的按键冲突(tab是 ycm 的弹出选择键，是 ultisnips 的补全展开键), 修改 ycm 选择键
+let g:vimwiki_global_ext = 0
 let g:user_emmet_settings = {
             \ 'php' : {
             \ 'extends' : 'html',
@@ -97,22 +112,26 @@ nmap <F5> :set number!<CR>
 nmap <silent> <leader>e :set wrap!<cr>
 nmap <silent> <leader>h :set hlsearch!<cr>
 nmap <silent> <leader>m :Mru<cr>
-nmap <silent> <leader>q :qa!<cr>
+nmap <silent> <leader>q :wqa<cr>
 nmap <silent> <leader>r :e!<space><cr>
+nmap <silent> <leader>rt :Autoformat<cr>
 nmap <silent> <leader>t :NERDTreeFocus<cr>
 nmap <silent> <leader>w :w!<cr>
-nmap <leader>f :YcmCompleter FixIt<cr>
+nmap <silent> <leader>f :FZF<cr>
+nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
 
 filetype plugin indent on    " required
+
+colorscheme gruvbox
 syntax on
 
-colorscheme solarized
-
+set vb t_vb=
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
 set notagbsearch
 set autoindent
 set number
 set relativenumber
+set numberwidth=6
 set textwidth=0
 set formatoptions+=mM
 set fdm=syntax
@@ -125,7 +144,7 @@ set et
 set sta
 set shiftround
 set mouse=a
-set fileencodings=utf8,gbk,latin1
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set backspace=indent,eol,start
 set incsearch
 set hidden
@@ -133,22 +152,28 @@ set modeline
 set guifont=Monaco:h16
 set laststatus=2
 set t_Co=256
-set completeopt+=preview
+if version > 820
+    set completeopt+=popup
+endif
 set background=dark
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
 set listchars=tab:»\ ,trail:·,extends:\#,nbsp:.
 
 if has('gui_running')
-  set guifont=Source\ Code\ Variable\ 12
-  set guioptions-=T
+    set guifont=Source\ Code\ Variable\ 12
+    set guioptions-=T
 elseif $SSH_CONNECTION
-  colorscheme industry
+    colorscheme industry
 endif
 
 if has("autocmd")
-    autocmd BufEnter * :lchdir %:p:h
-    autocmd BufEnter,BufRead,BufWrite *.vbs,*.bat,*.cmd setlocal fileformat=dos enc=gbk fileencoding=gbk tw=0
+    autocmd BufWritePre *.vbs,*.bat,*.cmd setlocal fileformat=dos fenc=gbk tw=0
+
+    augroup AutoPairs
+        autocmd FileType vb let b:AutoPairs={'(':')', '[':']', '{':'}', '"':'"', 'If':'Then'}
+        autocmd FileType vim let b:AutoPairs={'(':')', '[':']', '{':'}', "'":"'" }
+    augroup end
 
     augroup filetypedetect
         autocmd BufNewFile,BufRead *.blade.php setlocal filetype=html.blade
@@ -160,6 +185,7 @@ if has("autocmd")
     augroup END
 
     autocmd BufWritePre * call StripTrailingWhitespace()
+    autocmd FileType * setlocal omnifunc=syntaxcomplete#Complete
     autocmd FileType autohotkey setlocal omnifunc=ahkcomplete#Complete
     autocmd FileType c setlocal ofu=ccomplete#CompleteCpp
     autocmd FileType coffee setlocal ts=2 sw=2 et sta
@@ -167,12 +193,9 @@ if has("autocmd")
     autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
     autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
     autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
+    autocmd FileType perl,php :syntax on
+    autocmd FileType perl setlocal omnifunc=PerlComplete
     autocmd VimEnter,VimResized * :call OnResize()
-
-    " perlsupport 的 ultisnips 跳转区域按键相同(C-j), 临时修改 ultisnip 跳转触发
-    autocmd FileType perl let g:UltiSnipsJumpForwardTrigger = "<C-n>"
-    " perl syntax 没有自动打开
-    autocmd FileType perl syntax on
 endif
 
 function! StripTrailingWhitespace()
@@ -187,6 +210,7 @@ function! OnResize()
             let g:NERDTreeQuitOnOpen = 0
             set cc=75
             NERDTreeFocus
+            wincmd w
         endif
     else
         set cc=
@@ -199,6 +223,14 @@ function! OnResize()
         endif
     endif
 endfunction
+
+function! CN_SPACE() range
+    let r =  'silent!' . join([a:firstline, a:lastline], ',')
+    exe l:r . 's/\%([\u4e00-\u9fff]\)\@<=\s*\(\w\+\)/ \1/g'
+    exe l:r . 's/\(\w\+\)\s*\%([\u4e00-\u9fff]\)\@=/\1 /g'
+endfunction
+
+command! -range CNSPACE <line1>,<line2>call CN_SPACE()
 
 function! UnderCursorCharacter()
     let left = getline('.')[col('.') - 2]
@@ -221,5 +253,3 @@ function! RemoveTrailingBlank()
     call setline(previous, substitute(text, '\s\+$', '', ''))
     return "\<cr>"
 endfunction
-
-
