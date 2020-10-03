@@ -9,10 +9,18 @@ Plug 'SirVer/ultisnips'
 Plug 'whatyouhide/vim-gotham'
 Plug 'altercation/vim-colors-solarized'
 Plug 'morhetz/gruvbox'
+<<<<<<< HEAD
 Plug 'frazrepo/vim-rainbow'
 Plug 'honza/vim-snippets'
 Plug 'hotchpotch/perldoc-vim'
 "Plug 'jiangmiao/auto-pairs'
+=======
+Plug 'c9s/perlomni.vim'
+Plug 'frazrepo/vim-rainbow'
+Plug 'honza/vim-snippets'
+Plug 'hotchpotch/perldoc-vim'
+Plug 'jiangmiao/auto-pairs'
+>>>>>>> 025e3d41f6f5aa46b841c9944b54e1dd17baea74
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'kchmck/vim-coffee-script'
@@ -53,7 +61,15 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsListSnippets = '<c-z>'
+<<<<<<< HEAD
 let g:airline_powerline_fonts = 1
+=======
+if has('Win32')
+    let g:airline_symbols_ascii = 1
+else
+    let g:airline_powerline_fonts = 1
+endif
+>>>>>>> 025e3d41f6f5aa46b841c9944b54e1dd17baea74
 let g:airline_theme = 'solarized'
 let g:auto_strip_tailing_whitespace = 1
 "let g:barbaric_default = 0
@@ -145,24 +161,43 @@ set sta
 set shiftround
 set mouse=a
 set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+<<<<<<< HEAD
+=======
+set fileencoding=utf-8
+set encoding=utf-8
+set ff=unix
+>>>>>>> 025e3d41f6f5aa46b841c9944b54e1dd17baea74
 set backspace=indent,eol,start
 set incsearch
 set hidden
 set modeline
-set guifont=Monaco:h16
 set laststatus=2
 set t_Co=256
+<<<<<<< HEAD
 if version > 820
     set completeopt+=popup
 endif
+=======
+set completeopt+=popup
+>>>>>>> 025e3d41f6f5aa46b841c9944b54e1dd17baea74
 set background=dark
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
-set listchars=tab:»\ ,trail:·,extends:\#,nbsp:.
+set listchars=tab:?\ ,trail:·,extends:\#,nbsp:.
 
 if has('gui_running')
+<<<<<<< HEAD
     set guifont=Source\ Code\ Variable\ 12
     set guioptions-=T
+=======
+    if has('Win32')
+        set guifont=Source_Code_Pro:h11
+        set guioptions-=m
+    else
+        set guifont=Source\ Code\ Variable\ 12
+        set guioptions-=T
+    endif
+>>>>>>> 025e3d41f6f5aa46b841c9944b54e1dd17baea74
 elseif $SSH_CONNECTION
     colorscheme industry
 endif
@@ -194,7 +229,10 @@ if has("autocmd")
     autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
     autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
     autocmd FileType perl,php :syntax on
+<<<<<<< HEAD
     autocmd FileType perl setlocal omnifunc=PerlComplete
+=======
+>>>>>>> 025e3d41f6f5aa46b841c9944b54e1dd17baea74
     autocmd VimEnter,VimResized * :call OnResize()
 endif
 
