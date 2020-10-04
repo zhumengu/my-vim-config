@@ -166,6 +166,8 @@ set laststatus=2
 set t_Co=256
 if version > 820
     set completeopt+=popup
+    let &t_TI=""
+    let &t_TE=""
 endif
 set background=dark
 set list!
