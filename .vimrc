@@ -46,6 +46,8 @@ Plug 'yegappan/mru'
 Plug 'zhumengu/vim-AHKcomplete'
 call plug#end()
 
+let &t_TI=""
+let &t_TE=""
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.6, 'border': 'rounded'}  }
 let g:formatters_ruby = ['rufo']
 let g:formatdef_rufo = "'rufo -x'"
