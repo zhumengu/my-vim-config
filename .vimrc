@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'rlue/vim-barbaric'    " normal 模式退出输入法
 "Plug 'ruby-formatter/rufo-vim'
-
+Plug'vim-scripts/fcitx.vim'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
@@ -139,6 +139,7 @@ filetype plugin indent on    " required
 colorscheme gruvbox
 syntax on
 
+set ttimeoutlen=100     " fcitx 需要, 不设置 esc 按键会延迟
 set conceallevel=2
 set vb t_vb=
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
@@ -169,9 +170,7 @@ set hidden
 set modeline
 set laststatus=2
 set t_Co=256
-if version > 820
-    set completeopt+=popup
-endif
+set completeopt+=popup
 set background=dark
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
