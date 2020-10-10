@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'rlue/vim-barbaric'    " normal 模式退出输入法
 "Plug 'ruby-formatter/rufo-vim'
-
+Plug 'vim-scripts/fcitx.vim'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
@@ -26,6 +26,7 @@ Plug 'machakann/vim-Verdin'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdcommenter'
 Plug 'scrooloose/nerdtree'
@@ -46,6 +47,7 @@ Plug 'yegappan/mru'
 Plug 'zhumengu/vim-AHKcomplete'
 call plug#end()
 
+let g:vim_markdown_folding_disabled = 1
 let &t_TI=""
 let &t_TE=""
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.6, 'border': 'rounded'}  }
@@ -137,6 +139,8 @@ filetype plugin indent on    " required
 colorscheme gruvbox
 syntax on
 
+set ttimeoutlen=100     " fcitx 需要, 不设置 esc 按键会延迟
+set conceallevel=2
 set vb t_vb=
 set wildignore+=*.pyc,*.o,*.obj,*.svn,*.swp,*.class,*.hg,*.DS_Store,*.min.*
 set notagbsearch
@@ -172,7 +176,7 @@ endif
 set background=dark
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
-set listchars=tab:?\ ,trail:·,extends:\#,nbsp:.
+set listchars=tab:»\ ,trail:·,extends:\#,nbsp:.
 
 if has('gui_running')
     set guifont=Source\ Code\ Variable\ 12
