@@ -46,6 +46,8 @@ Plug 'yegappan/mru'
 Plug 'zhumengu/vim-AHKcomplete'
 call plug#end()
 
+let &t_TI=""
+let &t_TE=""
 let g:fzf_layout = { 'window': {'width': 0.9, 'height': 0.6, 'border': 'rounded'}  }
 let g:formatters_ruby = ['rufo']
 let g:formatdef_rufo = "'rufo -x'"
@@ -164,10 +166,8 @@ set hidden
 set modeline
 set laststatus=2
 set t_Co=256
-if version > 820
+if version >= 802
     set completeopt+=popup
-    let &t_TI=""
-    let &t_TE=""
 endif
 set background=dark
 set list!
