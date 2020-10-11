@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'rlue/vim-barbaric'    " normal 模式退出输入法
 "Plug 'ruby-formatter/rufo-vim'
-Plug'vim-scripts/fcitx.vim'
+Plug 'vim-scripts/fcitx.vim'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
 Plug 'SirVer/ultisnips'
@@ -67,6 +67,7 @@ if has('Win32')
 else
     let g:airline_powerline_fonts = 1
 endif
+let g:append_space_after_ignore = ['csv']
 let g:airline_theme = 'solarized'
 let g:auto_strip_tailing_whitespace = 1
 "let g:barbaric_default = 0
@@ -263,6 +264,13 @@ function! UnderCursorCharacter()
 endfunction
 
 function! AppendSpaceAfter(char)
+    if exists('g:append_space_after_ignore')
+        for ft in g:append_space_after_ignore
+            if &filetype == ft
+                return ','
+            endif
+        endfor
+    endif
     let arr = UnderCursorCharacter()
     if (arr[1] == '' && arr[2] == '') || arr[1] != " "
         return ",\<space>"
