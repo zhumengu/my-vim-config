@@ -171,11 +171,13 @@ set hidden
 set modeline
 set laststatus=2
 set t_Co=256
-set completeopt+=popup
+if version >= 802
+    set completeopt+=popup
+endif
 set background=dark
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
-set listchars=tab:?\ ,trail:·,extends:\#,nbsp:.
+set listchars=tab:»\ ,trail:·,extends:\#,nbsp:.
 
 if has('gui_running')
     set guifont=Source\ Code\ Variable\ 12
