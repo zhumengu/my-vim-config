@@ -1,6 +1,6 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
-"Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 "Plug 'junegunn/goyo.vim'
 "Plug 'mg979/vim-visual-multi'
 "Plug 'prabirshrestha/async.vim'
@@ -47,6 +47,8 @@ Plug 'yegappan/mru'
 Plug 'zhumengu/vim-AHKcomplete'
 call plug#end()
 
+let g:UltiSnipsNoPythonWarning = 1
+let g:rooter_silent_chdir = 1
 let g:vim_markdown_folding_disabled = 1
 let &t_TI=""
 let &t_TE=""
@@ -99,22 +101,19 @@ let g:user_emmet_settings = {
             \ },
             \}
 let g:vimwiki_list = [{
-            \ 'path': '~/ownCloud/Notes',
+            \ 'path': '~/.vimwiki/work/wiki',
             \ 'syntax': 'markdown', 'ext': '.md',
-            \ 'path_html': '~/.vimwiki/html/public',
-            \ 'template_path': '~/.vimwiki/html/pulibc/template/',
+            \ 'path_html': '~/.vimwiki/work/html',
+            \ 'template_path': '~/.vimwiki/work/html/template/',
             \ 'template_default': 'template',
             \ 'template_ext': '.html'
             \ },{
-            \ 'path': '~/ownCloud/Notes',
-            \ 'path_html': '~/.vimwiki/html/private/',
+            \ 'path': '~/.vimwiki/private/wiki',
+            \ 'path_html': '~/.vimwiki/private/html/',
             \ 'syntax': 'markdown', 'ext': '.md'
-            \ },{
-            \ 'path': '~/.vimwiki/wiki/english',
-            \ 'path_html': '~/.vimwiki/html/english/'
             \ }
-            \]
-
+            \ ]
+" mapping
 inoremap , <C-r>=AppendSpaceAfter(',')<cr>
 inoremap <cr> <C-r>=RemoveTrailingBlank()<cr>
 inoremap -. ->
@@ -124,6 +123,8 @@ inoremap <F5> <C-o>:set number!<CR>
 nmap <F3> :w!<CR>
 nmap <F5> :set number!<CR>
 nmap <silent> <leader>e :set wrap!<cr>
+nmap <silent> <leader>gg :Gpush origin master<cr>
+nmap <silent> <leader>gs :Gstatus<cr>
 nmap <silent> <leader>s :Rg<cr>
 nmap <silent> <leader>h :set hlsearch!<cr>
 nmap <silent> <leader>m :Mru<cr>
@@ -134,6 +135,7 @@ nmap <silent> <leader>t :NERDTreeFocus<cr>
 nmap <silent> <leader>w :w!<cr>
 nmap <silent> <leader>f :FZF<cr>
 nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
+cnoremap w!! execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 
 filetype plugin indent on    " required
 
