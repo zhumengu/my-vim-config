@@ -1,0 +1,20 @@
+snippet task "task"
+task "${1:taskname}" => make {
+    my $param = shift;
+};
+endsnippet
+snippet file "file"
+file '/${1:}',
+  source => 'files/$1',
+  owner  => '${3:root}',
+  group  => '${4:root}',
+  mode   => ${5:644};
+endsnippet
+snippet service "service"
+service '$1',
+  ensure => '${2:started}';
+endsnippet
+snippet pkg "pkg" b
+pkg '$1',
+  ensure => '${2:present}';
+endsnippet
