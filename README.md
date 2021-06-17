@@ -30,7 +30,6 @@ curl -sS https://raw.githubusercontent.com/zhumengu/my-vim-config/master/install
 - ultisnips 程序语言的自动完成
 - 不使用 Tab 而是使用空格， 使各个平台显示一致
 - 统一使用等宽字体 Source Code Pro
-- 多光标支持 vim-visual-mulit
 - 保存自动删除行尾空白字符
 - 嵌套的括号以彩色承兑显示 vim-rainbow
 - airline 显示状态栏
