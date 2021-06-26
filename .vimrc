@@ -184,6 +184,7 @@ if has('gui_running')
     if has('Win32')
         set guifont=FiraCode_Nerd_Font_Mono:h11
         set guioptions-=m
+        set guirender+=directx
     endif
 elseif $SSH_CONNECTION
     colorscheme industry
