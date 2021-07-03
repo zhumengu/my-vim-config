@@ -35,6 +35,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'whatyouhide/vim-gotham'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'yegappan/mru'
+Plug 'wellle/targets.vim'
 call plug#end()
 
 let g:UltiSnipsNoPythonWarning = 1
@@ -184,7 +185,8 @@ if has('gui_running')
     if has('Win32')
         set guifont=FiraCode_Nerd_Font_Mono:h11
         set guioptions-=m
-        set guirender+=directx
+        set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+        set columns=120
     endif
 elseif $SSH_CONNECTION
     colorscheme industry
