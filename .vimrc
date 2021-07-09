@@ -1,5 +1,6 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'xuhdev/SingleCompile'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-scripts/fcitx.vim'
@@ -122,7 +123,8 @@ nmap <silent> <leader>gs :Gstatus<cr>
 nmap <silent> <leader>s :Rg<cr>
 nmap <silent> <leader>h :set hlsearch!<cr>
 nmap <silent> <leader>m :Mru<cr>
-nmap <silent> <leader>q :wqa<cr>
+nmap <silent> <leader>q :q<cr>
+nmap <silent> <leader>x :xa<cr>
 nmap <silent> <leader>r :e!<space><cr>
 nmap <silent> <leader>rt :Autoformat<cr>
 nmap <silent> <leader>t :NERDTreeFocus<cr>
@@ -182,13 +184,14 @@ else
 endif
 
 if has('gui_running')
-    set guifont=FiraCode\ Nerd\ Font\ Mono\ 12
-    set guioptions-=T
     if has('Win32')
         set guifont=FiraCode_Nerd_Font_Mono:h11
         set guioptions-=m
         set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
         set columns=120
+    else
+        set guifont=FiraCode\ Nerd\ Font\ Mono\ 12
+        set guioptions-=T
     endif
 elseif $SSH_CONNECTION
     colorscheme industry
