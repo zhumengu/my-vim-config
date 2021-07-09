@@ -1,12 +1,8 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'xuhdev/SingleCompile'
 Plug 'jiangmiao/auto-pairs'
-"Plug 'junegunn/goyo.vim'
-"Plug 'mg979/vim-visual-multi'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'rlue/vim-barbaric'    " normal 模式退出输入法
-"Plug 'ruby-formatter/rufo-vim'
 Plug 'vim-scripts/fcitx.vim'
 Plug 'airblade/vim-rooter'
 Plug 'Chiel92/vim-autoformat'
@@ -20,14 +16,11 @@ Plug 'hotchpotch/perldoc-vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'kchmck/vim-coffee-script'
-Plug 'leafgarland/typescript-vim'
 Plug 'machakann/vim-Verdin'
 Plug 'mattn/emmet-vim'
 Plug 'morhetz/gruvbox'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 Plug 'preservim/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/syntastic'
@@ -37,14 +30,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-perl/vim-perl', { 'for': 'perl', 'do': 'make clean carp dancer highlight-all-programs moose test-more try-tiny' }
 Plug 'vim-scripts/YankRing.vim'
 Plug 'vim-scripts/matchit.zip'
 Plug 'vimwiki/vimwiki'
 Plug 'whatyouhide/vim-gotham'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'yegappan/mru'
-Plug 'zhumengu/vim-AHKcomplete'
+Plug 'wellle/targets.vim'
 call plug#end()
 
 let g:UltiSnipsNoPythonWarning = 1
@@ -119,23 +111,28 @@ inoremap <cr> <C-r>=RemoveTrailingBlank()<cr>
 inoremap -. ->
 inoremap =. =>
 inoremap <C-d> <C-[>mzyyp`zgj
-inoremap <F5> <C-o>:set number!<CR>
+inoremap <F5> <C-o>:set number!<CR><C-o>:set paste!<CR>
+nmap G Gzz
 nmap <F3> :w!<CR>
 nmap <F5> :set number!<CR>
+nmap <F9> :SingleCompile<cr>
+nmap <F10> :SingleCompileRun<cr>
 nmap <silent> <leader>e :set wrap!<cr>
 nmap <silent> <leader>gg :Gpush origin master<cr>
 nmap <silent> <leader>gs :Gstatus<cr>
 nmap <silent> <leader>s :Rg<cr>
 nmap <silent> <leader>h :set hlsearch!<cr>
 nmap <silent> <leader>m :Mru<cr>
-nmap <silent> <leader>q :wqa<cr>
+nmap <silent> <leader>q :q<cr>
+nmap <silent> <leader>x :xa<cr>
 nmap <silent> <leader>r :e!<space><cr>
 nmap <silent> <leader>rt :Autoformat<cr>
 nmap <silent> <leader>t :NERDTreeFocus<cr>
 nmap <silent> <leader>w :w!<cr>
 nmap <silent> <leader>f :FZF<cr>
 nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
-cnoremap w!! execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
+cnoremap ww execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
+cnoremap wh execute 'silent! !pandoc -f markdown -t html % -o ~/html/public/%:t:r.html' <bar> redraw!
 
 filetype plugin indent on    " required
 
@@ -177,18 +174,23 @@ if version >= 802
     set completeopt+=popup
 endif
 set background=dark
+hi Normal guibg=NONE ctermbg=NONE
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
-set listchars=tab:»\ ,trail:·,extends:\#,nbsp:.
+if has('multi_byte') && &encoding ==# 'utf-8'
+    let &listchars='tab:» ,trail:·,extends:#,nbsp:.'
+else
+    let &listchars='tab:> ,trail:.,extends:<,nbsp:.'
+endif
 
 if has('gui_running')
-    set guifont=Source\ Code\ Variable\ 12
-    set guioptions-=T
     if has('Win32')
-        set guifont=Source_Code_Pro:h11
+        set guifont=FiraCode_Nerd_Font_Mono:h11
         set guioptions-=m
+        set rop=type:directx,gamma:1.0,contrast:0.5,level:1,geom:1,renmode:4,taamode:1
+        set columns=120
     else
-        set guifont=Source\ Code\ Variable\ 12
+        set guifont=FiraCode\ Nerd\ Font\ Mono\ 12
         set guioptions-=T
     endif
 elseif $SSH_CONNECTION
@@ -197,6 +199,7 @@ endif
 
 if has("autocmd")
     autocmd BufWritePre *.vbs,*.bat,*.cmd setlocal fileformat=dos fenc=gbk tw=0
+    autocmd BufWritePre *.nsi setlocal bomb fenc=utf8
 
     augroup AutoPairs
         autocmd FileType vb let b:AutoPairs={'(':')', '[':']', '{':'}', '"':'"', 'If':'Then'}
