@@ -130,7 +130,7 @@ nmap <silent> <leader>w :w!<cr>
 nmap <silent> <leader>f :FZF<cr>
 nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
 cnoremap ww execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
-cnoremap wh execute 'silent! !pandoc -f markdown -t html % -o ~/html/public/%:t:r.html'
+cnoremap wh execute 'silent! !pandoc -f markdown -t html % -o ~/html/public/%:t:r.html' <bar> redraw!
 
 filetype plugin indent on    " required
 
@@ -172,6 +172,7 @@ if version >= 802
     set completeopt+=popup
 endif
 set background=dark
+hi Normal guibg=NONE ctermbg=NONE
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
 if has('multi_byte') && &encoding ==# 'utf-8'
