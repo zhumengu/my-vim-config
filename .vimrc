@@ -131,6 +131,9 @@ nmap <silent> <leader>t :NERDTreeFocus<cr>
 nmap <silent> <leader>w :w!<cr>
 nmap <silent> <leader>f :FZF<cr>
 nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
+nmap <cr> o<esc>
+vnoremap <silent>Y "yy <Bar> :call system('xclip',  @y)<CR>
+
 cnoremap ww execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 cnoremap wh execute 'silent! !pandoc -f markdown -t html % -o ~/html/public/%:t:r.html' <bar> redraw!
 iabbr udpate update
