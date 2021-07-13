@@ -39,6 +39,7 @@ Plug 'yegappan/mru'
 Plug 'wellle/targets.vim'
 call plug#end()
 
+let g:vimwiki_filetypes = ['markdown']
 let g:UltiSnipsNoPythonWarning = 1
 let g:rooter_silent_chdir = 1
 let g:vim_markdown_folding_disabled = 1
@@ -144,6 +145,7 @@ filetype plugin indent on    " required
 colorscheme gruvbox
 syntax on
 
+set selection=exclusive
 set ttimeoutlen=100     " fcitx 需要, 不设置 esc 按键会延迟
 set conceallevel=2
 set vb t_vb=
