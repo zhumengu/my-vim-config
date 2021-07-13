@@ -133,6 +133,8 @@ nmap <silent> <leader>f :FZF<cr>
 nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
 cnoremap ww execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 cnoremap wh execute 'silent! !pandoc -f markdown -t html % -o ~/html/public/%:t:r.html' <bar> redraw!
+iabbr udpate update
+iabbr mian main
 
 filetype plugin indent on    " required
 
