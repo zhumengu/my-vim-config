@@ -39,7 +39,8 @@ Plug 'yegappan/mru'
 Plug 'wellle/targets.vim'
 call plug#end()
 
-let g:vimwiki_filetypes = ['markdown']
+let g:vimwiki_folding='expr'
+let g:vimwiki_conceal_pre=1
 let g:UltiSnipsNoPythonWarning = 1
 let g:rooter_silent_chdir = 1
 let g:vim_markdown_folding_disabled = 1
