@@ -1,5 +1,6 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
+Plug 'luochen1990/rainbow'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'xuhdev/SingleCompile'
 Plug 'jiangmiao/auto-pairs'
@@ -10,7 +11,6 @@ Plug 'SirVer/ultisnips'
 Plug 'altercation/vim-colors-solarized'
 Plug 'c9s/perlomni.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'frazrepo/vim-rainbow'
 Plug 'honza/vim-snippets'
 Plug 'hotchpotch/perldoc-vim'
 Plug 'jlanzarotta/bufexplorer'
@@ -37,6 +37,7 @@ Plug 'whatyouhide/vim-gotham'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'yegappan/mru'
 Plug 'wellle/targets.vim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 let g:vimwiki_folding='expr'
@@ -57,7 +58,6 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 let g:UltiSnipsJumpForwardTrigger = "<c-j>"
 let g:UltiSnipsListSnippets = '<c-z>'
-let g:airline_powerline_fonts = 1
 if has('Win32')
     let g:airline_symbols_ascii = 1
 else
@@ -66,14 +66,9 @@ endif
 let g:append_space_after_ignore = ['csv']
 let g:airline_theme = 'solarized'
 let g:auto_strip_tailing_whitespace = 1
-"let g:barbaric_default = 0
-"let g:barbaric_timeout = 1
-let g:barbaric_scope = 'buffer'
-let g:barbaric_timeout = -1
 let g:closetag_html_style = 1
 let g:indent_guides_guide_size = 1
 let g:perl_sub_signatures = 1
-let g:rainbow_active = 1
 let g:solarized_termcolors = 256
 let g:solarized_termtrans = 1
 let g:vim_markdown_frontmatter = 1
@@ -107,6 +102,17 @@ let g:vimwiki_list = [{
             \ 'syntax': 'markdown', 'ext': '.md'
             \ }
             \ ]
+let g:rainbow_active = 1
+let g:rainbow_conf = {
+\   'separately': {
+\       'nerdtree': 0,
+\   }
+\}
+let g:webdevicons_enable_nerdtree = 1
+let g:webdevicons_conceal_nerdtree_brackets = 1
+let g:webdevicons_enable_airline_tabline = 1
+let g:webdevicons_enable_airline_statusline = 1
+
 " mapping
 inoremap , <C-r>=AppendSpaceAfter(',')<cr>
 inoremap <cr> <C-r>=RemoveTrailingBlank()<cr>
@@ -142,9 +148,9 @@ iabbr udpate update
 iabbr mian main
 
 filetype plugin indent on    " required
+syntax on
 
 colorscheme gruvbox
-syntax on
 
 set selection=exclusive
 set ttimeoutlen=100     " fcitx 需要, 不设置 esc 按键会延迟
@@ -178,6 +184,7 @@ set hidden
 set modeline
 set laststatus=2
 set t_Co=256
+set conceallevel=3
 if version >= 802
     set completeopt+=popup
 endif
@@ -206,6 +213,7 @@ elseif $SSH_CONNECTION
 endif
 
 if has("autocmd")
+    autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
     autocmd BufWritePre *.vbs,*.bat,*.cmd setlocal fileformat=dos fenc=gbk tw=0
     autocmd BufWritePre *.nsi setlocal bomb fenc=utf8
 
