@@ -1,5 +1,6 @@
 set nocompatible
 call plug#begin('~/.vim/plugged')
+Plug 'mhinz/vim-signify', { 'branch': 'legacy' }
 Plug 'luochen1990/rainbow'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'xuhdev/SingleCompile'
@@ -40,6 +41,7 @@ Plug 'wellle/targets.vim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
+let g:WebDevIconsUnicodeByteOrderMarkerDefaultSymbol = ''
 let g:vimwiki_folding='expr'
 let g:vimwiki_conceal_pre=1
 let g:UltiSnipsNoPythonWarning = 1
@@ -52,6 +54,8 @@ let g:formatters_ruby = ['rufo']
 let g:formatdef_rufo = "'rufo -x'"
 let g:perlomni_export_functions = 1
 let g:NERDTreeRespectWildIgnore = 1
+let g:NERDTreeRemoveExtraSpaces = 1
+let g:NERDTreeMinimalUI = 1
 let g:Templates_MapInUseWarn = 0
 let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsExpandTrigger = "<tab>"
@@ -104,8 +108,31 @@ let g:vimwiki_list = [{
             \ ]
 let g:rainbow_active = 1
 let g:rainbow_conf = {
+\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\   'guis': [''],
+\   'cterms': [''],
+\   'operators': '_,_',
+\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
 \   'separately': {
+\       '*': {},
 \       'nerdtree': 0,
+\       'css': 0,
+\       'markdown': {
+\           'parentheses_options': 'containedin=markdownCode contained'
+\       },
+\       'lisp': {
+\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3']
+\       },
+\       'vim': {
+\           'parentheses_options': 'containedin=vimFuncBody'
+\       },
+\       'perl': {
+\           'syn_name_prefix': 'perlBlockFoldRainbow'
+\       },
+\       'stylus': {
+\           'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup']
+\       }
 \   }
 \}
 let g:webdevicons_enable_nerdtree = 1
@@ -240,7 +267,7 @@ if has("autocmd")
     autocmd FileType html,xhtml setlocal ofu=htmlcomplete#CompleteTags
     autocmd FileType php setlocal ofu=phpcomplete#CompletePHP
     autocmd FileType ruby,eruby setlocal ofu=rubycomplete#Complete
-    autocmd FileType perl,php :syntax on
+    "autocmd FileType perl,php :syntax enable
     autocmd FileType perl setlocal omnifunc=PerlComplete
     autocmd VimEnter,VimResized * :call OnResize()
 endif
