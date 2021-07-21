@@ -146,7 +146,6 @@ inoremap <cr> <C-r>=RemoveTrailingBlank()<cr>
 inoremap -. ->
 inoremap =. =>
 inoremap <C-d> <C-[>mzyyp`zgj
-inoremap <F5> <C-o>:set number!<CR><C-o>:set paste!<CR>
 nmap G Gzz
 nmap <F3> :w!<CR>
 nmap <F5> :set number!<CR>
@@ -168,6 +167,7 @@ nmap <silent> <leader>f :FZF<cr>
 nmap <silent> <leader>fx :YcmCompleter FixIt<cr>
 nmap <cr> o<esc>
 vnoremap <silent>Y "yy <Bar> :call system('xclip',  @y)<CR>
+vnoremap <silent>$ $h
 
 cnoremap ww execute 'silent! write !SUDO_ASKPASS=`which ssh-askpass` sudo tee % >/dev/null' <bar> edit!
 cnoremap wh execute 'silent! !pandoc -f markdown -t html % -o ~/html/public/%:t:r.html' <bar> redraw!
@@ -179,7 +179,6 @@ syntax on
 
 colorscheme gruvbox
 
-set selection=exclusive
 set ttimeoutlen=100     " fcitx 需要, 不设置 esc 按键会延迟
 set conceallevel=2
 set vb t_vb=
