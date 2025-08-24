@@ -3,45 +3,10 @@ if exists('g:loaded_custom')
 endif
 let g:loaded_custom = 1
 
-function! custom#striptrailingwhitespace()
-    if g:auto_strip_tailing_whitespace == 1
-        %s/\s\+$//e
-    endif
-endfunction
-
 function! CN_SPACE() range
     let r =  'silent!' . join([a:firstline, a:lastline], ',')
     exe l:r . 's/\%([\u4e00-\u9fff]\)\@<=\s*\(\w\+\)/ \1/g'
     exe l:r . 's/\(\w\+\)\s*\%([\u4e00-\u9fff]\)\@=/\1 /g'
-endfunction
-
-function! s:undercursorcharacter()
-    let left = getline('.')[col('.') - 2]
-    let curr = getline('.')[col('.') - 1]
-    let right = getline('.')[col('.')]
-    return [left, curr, right]
-endfunction
-
-function! custom#appendspaceafter(char)
-    if exists('g:append_space_after_ignore')
-        for ft in g:append_space_after_ignore
-            if &filetype == ft
-                return ','
-            endif
-        endfor
-    endif
-    let arr = s:undercursorcharacter()
-    if (arr[1] == '' && arr[2] == '') || arr[1] != ' '
-        return ",\<space>"
-    endif
-    return ","
-endfunction
-
-function! custom#removetrailingblank()
-    let previous = line('.')
-    let text = getline(previous)
-    call setline(previous, substitute(text, '\s\+$', '', ''))
-    return "\<cr>"
 endfunction
 
 " Work out whether the line has a comment then reverse that condition...

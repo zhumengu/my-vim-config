@@ -5,7 +5,6 @@ source ~/.vim/plug_opts.vim
 call plug#begin('~/.vim/plugged')
     Plug 'AndrewRadev/splitjoin.vim'
     Plug 'Chiel92/vim-autoformat'
-    Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
     Plug 'airblade/vim-rooter'
     Plug 'ap/vim-css-color'
     Plug 'c9s/perlomni.vim', { 'for': 'perl' }
@@ -24,10 +23,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes'
     Plug 'vimwiki/vimwiki'
     Plug 'wellle/targets.vim'
-    Plug 'xuhdev/SingleCompile'
-    " 配色方案
-    Plug 'whatyouhide/vim-gotham'
-    Plug 'morhetz/gruvbox'
+    Plug 'ericbn/vim-solarized'
     Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
@@ -37,7 +33,8 @@ source ~/.vim/opts.vim
 
 filetype plugin indent on    " required
 
-colorscheme gruvbox
+set background=dark
+colorscheme solarized
 syntax on
 
 if has("autocmd")
@@ -75,6 +72,4 @@ if has("autocmd")
         autocmd BufNewFile,BufRead * let b:cmt = exists('b:cmt') ? b:cmt : '#'
         autocmd BufNewFile,BufRead *.p[lm],.t let b:cmt = exists('b:cmt') ? b:cmt : '#'
     augroup END
-
-    autocmd BufWritePre * call custom#striptrailingwhitespace()
 endif

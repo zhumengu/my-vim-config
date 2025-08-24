@@ -32,7 +32,6 @@ set t_Co=256            " 使用256色
 if version >= 802
     set completeopt+=popup
 endif
-set background=dark
 hi Normal ctermbg=NONE
 set list!
 "仅仅当系统不支持 unicode 字符时才使用 ascii 字符
